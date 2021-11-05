@@ -7,6 +7,8 @@ const user = [
 const login_form = document.querySelector("#loginForm");
 const estadodeCuenta = document.querySelector("#estadoCuenta");
 var saldo;
+var montoIngresado=document.querySelector("#dinero");
+
 login_form.addEventListener("submit", function(event){
     event.preventDefault();
     const name = login_form["nombre"];
@@ -15,11 +17,6 @@ login_form.addEventListener("submit", function(event){
     console.log(pwd, 'login input');
 
     for (let index = 0; index < user.length; index++) {
-        // const nombre = user[index].nombre;
-        // const contra = user[index].pwd;
-        // const saldoCuenta = user[index].saldo;
-        // console.log(nombre, 'el array');
-        // console.log(contra, 'el array');
 
         if(user[index].nombre==name.value && user[index].pwd== pwd.value){
             console.log('login');
@@ -28,15 +25,12 @@ login_form.addEventListener("submit", function(event){
             const respuesta = template(user[index].nombre);
             estadodeCuenta.innerHTML = respuesta;
             return saldo;
-            
         }else{
             console.log('incorrecto');
             const respuestaIncorrecta = template1('Usuario o Contraseña incorrectas')
             estadodeCuenta.innerHTML = respuestaIncorrecta
             
         }
-        
-        
     }
 });
 
@@ -65,14 +59,43 @@ botonConsultar.addEventListener("click", function(event){
     btnConsulta.innerHTML = template2(saldo);
 })
 
+
 botonIngresar.addEventListener("click", function(event){
     event.preventDefault();
     console.log('aqui debe ingresar su saldo');
+    let saldoTemporal=parseInt(saldo)+parseInt(montoIngresado.value);
+
+    if(saldoTemporal<10 || saldoTemporal >990) { 
+        alert("no se puede realizar la operacion");
+
+    }else{ 
+        saldo=saldoTemporal;
+        const btnIngresaMonto=document.querySelector("#saldoActual");
+        console.log(btnIngresaMonto);
+        btnIngresaMonto.innerHTML=template3(saldo);
+    }
 })
+
+function template3 (saldo){
+    var rta = `<p> ${saldo}, Su saldo actual es </p>`
+    return rta;
+}
 
 botoRetirar.addEventListener("click", function(event){
     event.preventDefault();
     console.log('aqui debe retirar su saldo');
+    let saldoTemporal=parseInt(saldo)-parseInt(montoIngresado.value);
+    console.log(montoIngresado.value);
+    console.log(saldo);
+    if(saldoTemporal<10 || saldoTemporal >990) { 
+        alert("no se puede realizar la operacion")
+    }else{ 
+        saldo=saldoTemporal;
+        const btnRetirarMonto=document.querySelector("#saldoActual");
+        console.log(btnRetirarMonto);
+        btnRetirarMonto.innerHTML=template3(saldo);
+    }
+
 })
 
 function template2 (saldo){
