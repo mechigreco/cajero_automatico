@@ -25,38 +25,40 @@
     <title>-ATM-</title>
   </head>
   <body>
-    <main>
-      <section id="titulo">
-        <h2>
-          <i class="fab fa-cc-visa"> </i>Cajero Automatico con JS
-          <i class="fab fa-cc-mastercard"></i>
-        </h2>
-        
-      </section>
-      <section id="usuario">
-        <form id="loginForm" action="" style="display: block; margin: 1rem 0">
-          <input name="nombre" type="text" placeholder="Nombre" required />
-          <input name="pwd" type="password" placeholder="Contraseña" required />
-          <button type="submit">Ingresar</button>
-        </form>
-        <div id="estadoCuenta"></div>
-        <div id="elSaldo"></div>
-      </section>
-      <section id="operaciones">
-        <p>
-          <input type="number" id="dinero" placeholder="Ingrese monto" />
-          <button id="consultarSaldo" class="btn btn-primary" type="button">
-            Consultar Saldo
-          </button>
-          <button id="ingresar" class="btn btn-primary" type="button">
-            Ingresar Monto
-          </button>
-          <button id="retirar" class="btn btn-primary" type="button">
-            Extraer Monto
-          </button>
-        </p>
-      </section>
-    </main>
+    
+
+      <section class="content gray">
+        <div>
+          <h3 > <i class="fab fa-cc-visa"></i> ATM </h3>
+          <form id="loginForm"  >
+            <div class="form__input-group">
+              <input id="usuarioName" class="form__input" name="nombre" type="text" placeholder="Nombre" autofocus required />
+              <input id="usuarioPass" class="form__input" name="pwd" type="password" placeholder="Contraseña" required />
+              <button id="ingresarButton" class="form__button" type="submit" >Ingresar</button>
+              <div id="estadoCuenta"></div>
+              <div id="operaciones" >
+                <p>
+                  <input type="number" id="dinero" placeholder="Ingrese monto" />
+                  <button id="consultarSaldo" class="btn btn-primary" type="button" data-toggle="tooltip" data-placement="left" title="Consultar Saldo">
+                    <i class="fas fa-question"></i>
+                  </button>
+                  <button id="ingresar" class="btn btn-primary" type="button" data-toggle="tooltip" data-placement="left" title="Ingresar Monto">
+                    <i class="fas fa-piggy-bank"></i>
+                  </button>
+                  <button id="retirar" class="btn btn-primary" type="button" data-toggle="tooltip" data-placement="left" title="Extraer Monto">
+                    <i class="fas fa-wallet"></i>
+                  </button>
+                </p>
+              </div>
+              <div id="elSaldo"></div>
+              <div id="saldoActual"></div>
+              
+            </div>
+            
+          </form>
+          
+        </div>    
+      </section>    
     <footer id="footer" class="bg-dark text-white">
         <p>Integrantes: - Mechi -Marian</p>
     </footer>

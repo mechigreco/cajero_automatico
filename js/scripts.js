@@ -5,44 +5,58 @@ const user = [
 ];
 
 const login_form = document.querySelector("#loginForm");
+let bandera = false;
 const estadodeCuenta = document.querySelector("#estadoCuenta");
 var saldo;
 var montoIngresado=document.querySelector("#dinero");
 
 login_form.addEventListener("submit", function(event){
     event.preventDefault();
-    const name = login_form["nombre"];
-    const pwd = login_form["pwd"];
+    const name = event.target["nombre"].value;
+    const pwd = event.target["pwd"].value;
     console.log(name, 'login input');
     console.log(pwd, 'login input');
+    
+    const filtro = user.filter((index)=> index.nombre=== name && index.pwd === pwd);
+    console.log(filtro);
+    
+    if (filtro.length<=0){
+        console.log('incorrecto');
+        const respuestaIncorrecta = template1('Usuario o Contraseña incorrecto');
+        estadodeCuenta.innerHTML = respuestaIncorrecta;
+        bandera = false;
+    }else{
+        console.log('correcto');
+        estadodeCuenta.innerHTML = ''
+        saldo = filtro[0].saldo;
+        console.log(saldo);
+        const respuesta = template(filtro[0].nombre);
+        estadodeCuenta.innerHTML = respuesta;
+        bandera = true;
+        const mostrar = document.getElementById('operaciones');
+        console.log(mostrar);
 
-    for (let index = 0; index < user.length; index++) {
-
-        if(user[index].nombre==name.value && user[index].pwd== pwd.value){
-            console.log('login');
-            saldo = user[index].saldo
-            console.log(saldo);
-            const respuesta = template(user[index].nombre);
-            estadodeCuenta.innerHTML = respuesta;
-            return saldo;
+        if(bandera){
+            console.log('en el si');
+            mostrar.style.visibility="visible";
         }else{
-            console.log('incorrecto');
-            const respuestaIncorrecta = template1('Usuario o Contraseña incorrectas')
-            estadodeCuenta.innerHTML = respuestaIncorrecta
-            
+            console.log('en el no');
+            mostrar.style.visibility="hidden";
         }
+
+        return saldo;
     }
 });
 
+
 function template(respuesta){
     var rta = `<p> El usuario es ${respuesta}. Que operaciones desea realizar?</p> ` 
-    // var rta = `<p> El usuario es ${respuesta}. Que operaciones desea realizar?</p> <button id="consultarSaldo" class="btn btn-primary">Consultar Saldo</button> <button id="ingresar" class="btn btn-primary">Ingresar Monto</button> <button id="retirar" class="btn btn-primary">Retirar Monto</button>` 
 
     return rta;
 }
 
 function template1 (respuestaIncorrecta){
-    var rta = `<p> ${respuestaIncorrecta}, favor ingrese de nuevo </p>. <button type="reset" class="btn btn-danger">Reintentar</button>`
+    var rta = `<p> ${respuestaIncorrecta}, favor ingrese de nuevo </p>. <button id="btnReset" type="reset" class="btn btn-danger">Reintentar</button>`
     return rta;
 }
     
@@ -73,11 +87,12 @@ botonIngresar.addEventListener("click", function(event){
         const btnIngresaMonto=document.querySelector("#saldoActual");
         console.log(btnIngresaMonto);
         btnIngresaMonto.innerHTML=template3(saldo);
+        montoIngresado.value='';
     }
 })
 
 function template3 (saldo){
-    var rta = `<p> ${saldo}, Su saldo actual es </p>`
+    var rta = `<p>  Su saldo actual es ${saldo}</p>`
     return rta;
 }
 
@@ -94,6 +109,8 @@ botoRetirar.addEventListener("click", function(event){
         const btnRetirarMonto=document.querySelector("#saldoActual");
         console.log(btnRetirarMonto);
         btnRetirarMonto.innerHTML=template3(saldo);
+        montoIngresado.value='';
+
     }
 
 })
