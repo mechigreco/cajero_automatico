@@ -117,3 +117,17 @@ h5{
   border: none;
 }
 
+footer{
+  height: 10rem;
+}
+.piedePagina{
+  margin: 0;
+  padding: 3px;
+}
+
+.footerAnchor{
+  color: #007f67;
+}
+.footerAnchor:hover{
+  color: #009579;
+}
